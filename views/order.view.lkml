@@ -267,6 +267,7 @@ view: order {
 
   dimension: shipping_address_country {
     type: string
+    map_layer_name: countries
     sql: ${TABLE}.shipping_address_country ;;
   }
 

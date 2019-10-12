@@ -664,4 +664,10 @@ explore: transaction {
     sql_on: ${order.customer_id} = ${customer.id} ;;
     relationship: many_to_one
   }
+
+  join: shipping {
+    type: left_outer
+    sql_on: ${order.id} = ${shipping.market_order_id} ;;
+    relationship: many_to_one
+  }
 }

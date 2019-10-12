@@ -188,6 +188,12 @@ view: transaction {
     sql: ${TABLE}.user_id ;;
   }
 
+  measure: total_amount {
+    type: sum
+    sql: ${TABLE}.amount ;;
+    value_format: "#,##0.00"
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
