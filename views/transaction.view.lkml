@@ -10,6 +10,7 @@ view: transaction {
 
   dimension_group: _fivetran_synced {
     type: time
+    hidden: yes
     timeframes: [
       raw,
       time,
@@ -37,6 +38,8 @@ view: transaction {
     timeframes: [
       raw,
       time,
+      day_of_week,
+      day_of_month,
       date,
       week,
       month,
@@ -190,14 +193,28 @@ view: transaction {
 
   measure: total_amount {
     type: sum
-    sql: ${TABLE}.amount ;;
-    value_format: "#,##0.00"
+    sql: ${amount};;
+    value_format: "$#,##0.00"
+  }
+
+  measure: avg_amount {
+    type: average
+    sql: ${amount} ;;
+    value_format: "$#,##0.00"
+  }
+
+  measure: net_revenue {
+    type: sum
+    sql: ${amount} - ${shipping.order_shipping_amount} ;;
+    value_format: "$#,##0.00"
   }
 
   measure: count {
     type: count
     drill_fields: [detail*]
   }
+
+
 
   # ----- Sets of fields for drilling ------
   set: detail {

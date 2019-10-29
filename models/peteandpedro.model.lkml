@@ -659,6 +659,25 @@ explore: transaction {
     relationship: many_to_one
   }
 
+  join: order_line {
+    type: left_outer
+    sql_on: ${order.id} = ${order_line.order_id} ;;
+    relationship: many_to_one
+  }
+
+  join: product {
+    type: left_outer
+    sql_on: ${product.id} = ${order_line.product_id} ;;
+    relationship: many_to_one
+  }
+
+  join: product_option{
+    type: left_outer
+    sql_on: ${product.id} = ${product_option.product_id} ;;
+    relationship: many_to_one
+  }
+
+
   join: customer {
     type: left_outer
     sql_on: ${order.customer_id} = ${customer.id} ;;

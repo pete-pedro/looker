@@ -385,6 +385,11 @@ view: order {
     sql: ${TABLE}.user_id ;;
   }
 
+  measure: avg_amount {
+    type: average
+    sql: ${total_price} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
