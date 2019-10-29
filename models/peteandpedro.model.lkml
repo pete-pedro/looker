@@ -3,12 +3,12 @@ connection: "peteandpedro"
 # include all the views
 include: "/views/**/*.view"
 
-datagroup: peteandpedro_default_datagroup {
+#datagroup: peteandpedro_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
-}
+#  max_cache_age: "1 hour"
+#}
 
-persist_with: peteandpedro_default_datagroup
+#persist_with: peteandpedro_default_datagroup
 
 explore: applied_discount {
   join: checkout_line {
