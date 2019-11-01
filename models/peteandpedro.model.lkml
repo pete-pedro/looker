@@ -10,6 +10,10 @@ include: "/views/**/*.view"
 
 #persist_with: peteandpedro_default_datagroup
 
+explore: new_users_over_time {
+
+}
+
 explore: applied_discount {
   join: checkout_line {
     type: left_outer
@@ -687,6 +691,38 @@ explore: transaction {
   join: shipping {
     type: left_outer
     sql_on: ${order.id} = ${shipping.market_order_id} ;;
+    relationship: many_to_one
+  }
+
+  join: order_discount_code {
+    type: left_outer
+    sql_on: ${order.id} = ${order_discount_code.order_id} ;;
+    relationship: many_to_one
+  }
+
+  join: discount_code {
+    type: left_outer
+    sql_on: ${order_discount_code.code} = ${discount_code.code} ;;
+    relationship: many_to_one
+  }
+
+  join: checkout_discount_code {
+    type: left_outer
+    sql_on: ${discount_code.id} = ${checkout_discount_code.discount_id} ;;
+    relationship: many_to_one
+  }
+}
+
+explore: shipping {
+  join: order {
+    type: left_outer
+    sql_on: ${shipping.market_order_id} = ${order.id} ;;
+    relationship: many_to_one
+  }
+
+  join: transaction {
+    type: left_outer
+    sql_on: ${transaction.order_id} = ${order.id} ;;
     relationship: many_to_one
   }
 }

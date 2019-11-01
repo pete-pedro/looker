@@ -387,6 +387,7 @@ view: order {
 
   measure: avg_amount {
     type: average
+    value_format: "$#,##0.00"
     sql: ${total_price} ;;
   }
 

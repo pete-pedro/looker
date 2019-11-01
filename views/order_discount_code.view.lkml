@@ -31,6 +31,7 @@ view: order_discount_code {
   }
 
   dimension: order_id {
+    primary_key: yes
     type: number
     # hidden: yes
     sql: ${TABLE}.order_id ;;

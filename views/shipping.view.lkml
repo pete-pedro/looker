@@ -1,824 +1,584 @@
 view: shipping {
   sql_table_name: desktopshipper.shipping ;;
 
+  dimension: _file {
+    type: string
+    sql: ${TABLE}._file ;;
+  }
+
+  dimension_group: _fivetran_synced {
+    hidden: yes
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}._fivetran_synced ;;
+  }
+
+  dimension: _line {
+    type: number
+    sql: ${TABLE}._line ;;
+  }
+
+  dimension_group: _modified {
+    hidden: yes
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}._modified ;;
+  }
+
+  dimension_group: shipped {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: PARSE_DATE('%m/%d/%Y', SUBSTR(shipped_date, 1, 9)) ;;
+  }
+
   dimension: address_change_user {
     type: string
-    sql: ${TABLE}.addressChangeUser ;;
+    sql: ${TABLE}.address_change_user ;;
   }
 
   dimension: assigned_batch_id {
     type: number
-    sql: ${TABLE}.assignedBatchId ;;
+    sql: ${TABLE}.assigned_batch_id ;;
   }
 
   dimension: avs_override {
     type: yesno
-    sql: ${TABLE}.avsOverride ;;
+    sql: ${TABLE}.avs_override ;;
   }
 
   dimension: avs_result_applied {
     type: yesno
-    sql: ${TABLE}.avsResultApplied ;;
+    sql: ${TABLE}.avs_result_applied ;;
   }
 
   dimension: avs_result_ok {
     type: yesno
-    sql: ${TABLE}.avsResultOk ;;
+    sql: ${TABLE}.avs_result_ok ;;
   }
 
   dimension: avs_result_rec_id {
     type: number
-    sql: ${TABLE}.avsResultRecId ;;
+    sql: ${TABLE}.avs_result_rec_id ;;
   }
 
-  dimension: batch_import_grouping_key {
+  dimension: bill_addr_1 {
     type: string
-    sql: ${TABLE}.batchImportGroupingKey ;;
+    sql: ${TABLE}.bill_addr_1 ;;
   }
 
-  dimension: batch_processing_error {
+  dimension: bill_addr_2 {
     type: string
-    sql: ${TABLE}.batchProcessingError ;;
-  }
-
-  dimension: batch_processing_status {
-    type: string
-    sql: ${TABLE}.batchProcessingStatus ;;
-  }
-
-  dimension: bill_addr1 {
-    type: string
-    sql: ${TABLE}.billAddr1 ;;
-  }
-
-  dimension: bill_addr2 {
-    type: string
-    sql: ${TABLE}.billAddr2 ;;
-  }
-
-  dimension: bill_addr3 {
-    type: string
-    sql: ${TABLE}.billAddr3 ;;
+    sql: ${TABLE}.bill_addr_2 ;;
   }
 
   dimension: bill_city {
     type: string
-    sql: ${TABLE}.billCity ;;
-  }
-
-  dimension: bill_company {
-    type: string
-    sql: ${TABLE}.billCompany ;;
+    sql: ${TABLE}.bill_city ;;
   }
 
   dimension: bill_country {
     type: string
-    sql: ${TABLE}.billCountry ;;
+    sql: ${TABLE}.bill_country ;;
   }
 
   dimension: bill_name {
     type: string
-    sql: ${TABLE}.billName ;;
+    sql: ${TABLE}.bill_name ;;
   }
 
   dimension: bill_phone {
     type: string
-    sql: ${TABLE}.billPhone ;;
+    sql: ${TABLE}.bill_phone ;;
   }
 
   dimension: bill_post_code {
     type: string
-    sql: ${TABLE}.billPostCode ;;
+    sql: ${TABLE}.bill_post_code ;;
   }
 
   dimension: bill_state_or_prov {
     type: string
-    sql: ${TABLE}.billStateOrProv ;;
+    sql: ${TABLE}.bill_state_or_prov ;;
   }
 
   dimension: block_integration_internal_status_updates {
     type: yesno
-    sql: ${TABLE}.blockIntegrationInternalStatusUpdates ;;
+    sql: ${TABLE}.block_integration_internal_status_updates ;;
   }
 
   dimension: block_integration_notes_update {
     type: yesno
-    sql: ${TABLE}.blockIntegrationNotesUpdate ;;
+    sql: ${TABLE}.block_integration_notes_update ;;
   }
 
   dimension: block_integration_ship_update {
     type: yesno
-    sql: ${TABLE}.blockIntegrationShipUpdate ;;
+    sql: ${TABLE}.block_integration_ship_update ;;
   }
 
   dimension: block_integration_updates {
     type: yesno
-    sql: ${TABLE}.blockIntegrationUpdates ;;
+    sql: ${TABLE}.block_integration_updates ;;
   }
 
   dimension: buyer_email {
     type: string
-    sql: ${TABLE}.buyerEmail ;;
+    sql: ${TABLE}.buyer_email ;;
   }
 
   dimension: carton_cost {
     type: number
-    sql: ${TABLE}.cartonCost ;;
+    sql: ${TABLE}.carton_cost ;;
   }
 
   dimension: carton_weight {
     type: number
-    sql: ${TABLE}.cartonWeight ;;
+    sql: ${TABLE}.carton_weight ;;
   }
 
   dimension: client_id {
     type: number
-    sql: ${TABLE}.clientId ;;
+    sql: ${TABLE}.client_id ;;
   }
 
   dimension: client_unique_sequence {
     type: number
-    sql: ${TABLE}.clientUniqueSequence ;;
+    sql: ${TABLE}.client_unique_sequence ;;
   }
 
   dimension: cmlink_id {
     type: number
-    sql: ${TABLE}.cmlinkId ;;
-  }
-
-  dimension: csv_client_import_id {
-    type: string
-    sql: ${TABLE}.csvClientImportId ;;
+    sql: ${TABLE}.cmlink_id ;;
   }
 
   dimension: desc_sort_master_flag {
     type: yesno
-    sql: ${TABLE}.descSortMasterFlag ;;
-  }
-
-  dimension: estimated_ship_date {
-    type: string
-    sql: ${TABLE}.estimatedShipDate ;;
-  }
-
-  dimension: flag_for_dropship {
-    type: string
-    sql: ${TABLE}.flagForDropship ;;
-  }
-
-  dimension: freight_bill_account {
-    type: string
-    sql: ${TABLE}.FreightBillAccount ;;
+    sql: ${TABLE}.desc_sort_master_flag ;;
   }
 
   dimension: freight_bill_type {
     type: number
-    sql: ${TABLE}.FreightBillType ;;
-  }
-
-  dimension: from_addr1 {
-    type: string
-    sql: ${TABLE}.fromAddr1 ;;
-  }
-
-  dimension: from_addr2 {
-    type: string
-    sql: ${TABLE}.fromAddr2 ;;
-  }
-
-  dimension: from_addr3 {
-    type: string
-    sql: ${TABLE}.fromAddr3 ;;
-  }
-
-  dimension: from_city {
-    type: string
-    sql: ${TABLE}.fromCity ;;
-  }
-
-  dimension: from_company {
-    type: string
-    sql: ${TABLE}.fromCompany ;;
-  }
-
-  dimension: from_country {
-    type: string
-    sql: ${TABLE}.fromCountry ;;
-  }
-
-  dimension: from_email {
-    type: string
-    sql: ${TABLE}.fromEmail ;;
-  }
-
-  dimension: from_name {
-    type: string
-    sql: ${TABLE}.fromName ;;
-  }
-
-  dimension: from_phone {
-    type: string
-    sql: ${TABLE}.fromPhone ;;
-  }
-
-  dimension: from_post_code {
-    type: string
-    sql: ${TABLE}.fromPostCode ;;
-  }
-
-  dimension: from_state_or_prov {
-    type: string
-    sql: ${TABLE}.fromStateOrProv ;;
-  }
-
-  dimension: gift_message {
-    type: string
-    sql: ${TABLE}.giftMessage ;;
-  }
-
-  dimension: gift_notes {
-    type: string
-    sql: ${TABLE}.giftNotes ;;
-  }
-
-  dimension: gift_price {
-    type: string
-    sql: ${TABLE}.giftPrice ;;
+    sql: ${TABLE}.freight_bill_type ;;
   }
 
   dimension: height {
-    type: string
+    type: number
     sql: ${TABLE}.height ;;
   }
 
   dimension: internal_id {
     type: number
-    sql: ${TABLE}.internalId ;;
+    sql: ${TABLE}.internal_id ;;
   }
 
   dimension: internal_status {
     type: string
-    sql: ${TABLE}.internalStatus ;;
-  }
-
-  dimension: internal_status_124 {
-    type: string
-    sql: ${TABLE}.internalStatus_124 ;;
+    sql: ${TABLE}.internal_status ;;
   }
 
   dimension: is_amazon_prime {
     type: yesno
-    sql: ${TABLE}.isAmazonPrime ;;
+    sql: ${TABLE}.is_amazon_prime ;;
   }
 
   dimension: is_cloud_owned_shipment {
     type: yesno
-    sql: ${TABLE}.isCloudOwnedShipment ;;
+    sql: ${TABLE}.is_cloud_owned_shipment ;;
   }
 
   dimension: is_manual_shipment {
     type: yesno
-    sql: ${TABLE}.isManualShipment ;;
+    sql: ${TABLE}.is_manual_shipment ;;
   }
 
   dimension: is_test_mode_shipment {
     type: yesno
-    sql: ${TABLE}.isTestModeShipment ;;
+    sql: ${TABLE}.is_test_mode_shipment ;;
   }
 
   dimension: ise_bay_guaranteed {
     type: yesno
-    sql: ${TABLE}.iseBayGuaranteed ;;
-  }
-
-  dimension: item_custom_value1 {
-    type: string
-    sql: ${TABLE}.itemCustomValue1 ;;
-  }
-
-  dimension: item_custom_value2 {
-    type: string
-    sql: ${TABLE}.itemCustomValue2 ;;
-  }
-
-  dimension: item_custom_value3 {
-    type: string
-    sql: ${TABLE}.itemCustomValue3 ;;
+    sql: ${TABLE}.ise_bay_guaranteed ;;
   }
 
   dimension: label_is_printed {
     type: yesno
-    sql: ${TABLE}.labelIsPrinted ;;
+    sql: ${TABLE}.label_is_printed ;;
   }
 
   dimension: label_printed_date {
     type: string
-    sql: ${TABLE}.labelPrintedDate ;;
+    sql: ${TABLE}.label_printed_date ;;
   }
 
   dimension: last_updated_date {
     type: string
-    sql: ${TABLE}.lastUpdatedDate ;;
+    sql: ${TABLE}.last_updated_date ;;
   }
 
   dimension: length {
-    type: string
+    type: number
     sql: ${TABLE}.length ;;
   }
 
   dimension: line_item_type {
     type: string
-    sql: ${TABLE}.lineItemType ;;
+    sql: ${TABLE}.line_item_type ;;
   }
 
   dimension: location_sort_master_flag {
     type: yesno
-    sql: ${TABLE}.locationSortMasterFlag ;;
-  }
-
-  dimension: market_additional_reference {
-    type: string
-    sql: ${TABLE}.marketAdditionalReference ;;
+    sql: ${TABLE}.location_sort_master_flag ;;
   }
 
   dimension: market_fulfillment_id {
     type: number
-    sql: ${TABLE}.marketFulfillmentId ;;
+    sql: ${TABLE}.market_fulfillment_id ;;
   }
 
   dimension: market_id {
     type: number
-    sql: ${TABLE}.marketId ;;
+    sql: ${TABLE}.market_id ;;
   }
 
   dimension: market_internal_id {
     type: string
-    sql: ${TABLE}.marketInternalId ;;
+    sql: ${TABLE}.market_internal_id ;;
   }
 
   dimension: market_item_id {
     type: number
-    sql: ${TABLE}.marketItemId ;;
-  }
-
-  dimension: market_listing_key {
-    type: string
-    sql: ${TABLE}.marketListingKey ;;
+    sql: ${TABLE}.market_item_id ;;
   }
 
   dimension: market_order_id {
+    primary_key: yes
     type: number
-    sql: ${TABLE}.marketOrderId ;;
+    sql: ${TABLE}.market_order_id ;;
   }
 
   dimension: market_order_item_key {
     type: number
-    sql: ${TABLE}.marketOrderItemKey ;;
+    sql: ${TABLE}.market_order_item_key ;;
   }
 
   dimension: market_order_number {
     type: string
-    sql: ${TABLE}.marketOrderNumber ;;
+    sql: ${TABLE}.market_order_number ;;
   }
 
   dimension: market_primary_key {
     type: string
-    sql: ${TABLE}.marketPrimaryKey ;;
+    sql: ${TABLE}.market_primary_key ;;
   }
 
   dimension: market_product_key {
     type: string
-    sql: ${TABLE}.marketProductKey ;;
-  }
-
-  dimension: market_secondary_key {
-    type: string
-    sql: ${TABLE}.marketSecondaryKey ;;
+    sql: ${TABLE}.market_product_key ;;
   }
 
   dimension: market_sku {
     type: string
-    sql: ${TABLE}.marketSku ;;
+    sql: ${TABLE}.market_sku ;;
   }
 
   dimension: market_title {
     type: string
-    sql: ${TABLE}.marketTitle ;;
-  }
-
-  dimension: marketplace_checkout_status {
-    type: string
-    sql: ${TABLE}.marketplaceCheckoutStatus ;;
+    sql: ${TABLE}.market_title ;;
   }
 
   dimension: marketplace_needs_update_flag {
     type: yesno
-    sql: ${TABLE}.marketplaceNeedsUpdateFlag ;;
+    sql: ${TABLE}.marketplace_needs_update_flag ;;
   }
 
   dimension: marketplace_order_status {
     type: string
-    sql: ${TABLE}.marketplaceOrderStatus ;;
+    sql: ${TABLE}.marketplace_order_status ;;
   }
 
   dimension: marketplace_payment_status {
     type: string
-    sql: ${TABLE}.marketplacePaymentStatus ;;
+    sql: ${TABLE}.marketplace_payment_status ;;
   }
 
   dimension: marketplace_writeback_complete {
     type: yesno
-    sql: ${TABLE}.marketplaceWritebackComplete ;;
+    sql: ${TABLE}.marketplace_writeback_complete ;;
   }
 
   dimension: marketplace_writeback_date {
     type: string
-    sql: ${TABLE}.marketplaceWritebackDate ;;
-  }
-
-  dimension: markup_cost {
-    type: string
-    sql: ${TABLE}.markupCost ;;
+    sql: ${TABLE}.marketplace_writeback_date ;;
   }
 
   dimension: negotiated_cost {
     type: number
-    sql: ${TABLE}.negotiatedCost ;;
-  }
-
-  dimension: omcreate_date {
-    type: string
-    sql: ${TABLE}.OMCreateDate ;;
+    sql: ${TABLE}.negotiated_cost ;;
   }
 
   dimension: order_currency_code {
     type: string
-    sql: ${TABLE}.orderCurrencyCode ;;
+    sql: ${TABLE}.order_currency_code ;;
   }
 
   dimension: order_date {
     type: string
-    sql: ${TABLE}.orderDate ;;
+    sql: ${TABLE}.order_date ;;
   }
 
   dimension: order_guid {
     type: string
-    sql: ${TABLE}.orderGuid ;;
-  }
-
-  dimension: order_insurance_amount {
-    type: string
-    sql: ${TABLE}.orderInsuranceAmount ;;
+    sql: ${TABLE}.order_guid ;;
   }
 
   dimension: order_item_id {
     type: number
-    sql: ${TABLE}.orderItemId ;;
+    sql: ${TABLE}.order_item_id ;;
   }
 
   dimension: order_item_key {
     type: number
-    sql: ${TABLE}.orderItemKey ;;
-  }
-
-  dimension: order_private_notes {
-    type: string
-    sql: ${TABLE}.orderPrivateNotes ;;
+    sql: ${TABLE}.order_item_key ;;
   }
 
   dimension: order_promo_amount {
     type: number
-    sql: ${TABLE}.orderPromoAmount ;;
-  }
-
-  dimension: order_promo_code {
-    type: string
-    sql: ${TABLE}.orderPromoCode ;;
-  }
-
-  dimension: order_public_notes {
-    type: string
-    sql: ${TABLE}.orderPublicNotes ;;
+    sql: ${TABLE}.order_promo_amount ;;
   }
 
   dimension: order_root_id {
     type: number
-    sql: ${TABLE}.orderRootId ;;
-  }
-
-  dimension: order_root_id_141 {
-    type: number
-    sql: ${TABLE}.orderRootId_141 ;;
+    sql: ${TABLE}.order_root_id ;;
   }
 
   dimension: order_shipping_amount {
     type: number
-    sql: ${TABLE}.orderShippingAmount ;;
-  }
-
-  dimension: order_shipping_tax_amount {
-    type: string
-    sql: ${TABLE}.orderShippingTaxAmount ;;
-  }
-
-  dimension: order_special_instructions {
-    type: string
-    sql: ${TABLE}.orderSpecialInstructions ;;
+    sql: ${TABLE}.order_shipping_amount ;;
   }
 
   dimension: order_tax_amount {
     type: number
-    sql: ${TABLE}.orderTaxAmount ;;
+    sql: ${TABLE}.order_tax_amount ;;
   }
 
   dimension: order_total_amount {
     type: number
-    sql: ${TABLE}.orderTotalAmount ;;
+    sql: ${TABLE}.order_total_amount ;;
   }
 
   dimension: order_total_weight {
     type: number
-    sql: ${TABLE}.orderTotalWeight ;;
-  }
-
-  dimension: order_type {
-    type: string
-    sql: ${TABLE}.orderType ;;
+    sql: ${TABLE}.order_total_weight ;;
   }
 
   dimension: ordered_qty {
     type: number
-    sql: ${TABLE}.orderedQty ;;
+    sql: ${TABLE}.ordered_qty ;;
   }
 
   dimension: package_id {
     type: string
-    sql: ${TABLE}.packageId ;;
+    sql: ${TABLE}.package_id ;;
   }
 
   dimension: packed_qty {
     type: number
-    sql: ${TABLE}.packedQty ;;
-  }
-
-  dimension: parent_item_rec_id {
-    type: string
-    sql: ${TABLE}.parentItemRecId ;;
-  }
-
-  dimension: pay_detail1 {
-    type: string
-    sql: ${TABLE}.payDetail1 ;;
-  }
-
-  dimension: pay_detail2 {
-    type: string
-    sql: ${TABLE}.payDetail2 ;;
-  }
-
-  dimension: pay_method {
-    type: string
-    sql: ${TABLE}.payMethod ;;
+    sql: ${TABLE}.packed_qty ;;
   }
 
   dimension: picked_qty {
     type: number
-    sql: ${TABLE}.pickedQty ;;
-  }
-
-  dimension: printed_date {
-    type: string
-    sql: ${TABLE}.printedDate ;;
+    sql: ${TABLE}.picked_qty ;;
   }
 
   dimension: profile_id {
     type: number
-    sql: ${TABLE}.profileId ;;
-  }
-
-  dimension: published_cost {
-    type: string
-    sql: ${TABLE}.publishedCost ;;
-  }
-
-  dimension: qty_to_dropship {
-    type: string
-    sql: ${TABLE}.qtyToDropship ;;
+    sql: ${TABLE}.profile_id ;;
   }
 
   dimension: rec_id {
     type: number
-    sql: ${TABLE}.recId ;;
-  }
-
-  dimension: rec_id_140 {
-    type: number
-    sql: ${TABLE}.recId_140 ;;
+    sql: ${TABLE}.rec_id ;;
   }
 
   dimension: requested_carrier {
     type: string
-    sql: ${TABLE}.requestedCarrier ;;
+    sql: ${TABLE}.requested_carrier ;;
   }
 
   dimension: requested_class {
     type: string
-    sql: ${TABLE}.requestedClass ;;
-  }
-
-  dimension: requested_deliver_by_date {
-    type: string
-    sql: ${TABLE}.requestedDeliverByDate ;;
-  }
-
-  dimension: requested_return_service {
-    type: string
-    sql: ${TABLE}.requestedReturnService ;;
+    sql: ${TABLE}.requested_class ;;
   }
 
   dimension: requested_ship_method {
     type: string
-    sql: ${TABLE}.requestedShipMethod ;;
+    sql: ${TABLE}.requested_ship_method ;;
   }
 
   dimension: save_date {
     type: string
-    sql: ${TABLE}.saveDate ;;
+    sql: ${TABLE}.save_date ;;
   }
 
   dimension: secondary_order_number {
     type: string
-    sql: ${TABLE}.secondaryOrderNumber ;;
+    sql: ${TABLE}.secondary_order_number ;;
   }
 
   dimension: seller_order_number {
     type: string
-    sql: ${TABLE}.sellerOrderNumber ;;
+    sql: ${TABLE}.seller_order_number ;;
   }
 
-  dimension: ship_addr1 {
-    type: string
-    sql: ${TABLE}.shipAddr1 ;;
+  dimension: shippeddate {
+    type: date
+    sql: PARSE_DATE('%m/%d/%Y', SUBSTR(shipped_date, 1, 9)) ;;
   }
 
-  dimension: ship_addr2 {
+  dimension: ship_addr_1 {
     type: string
-    sql: ${TABLE}.shipAddr2 ;;
+    sql: ${TABLE}.ship_addr_1 ;;
   }
 
-  dimension: ship_addr3 {
+  dimension: ship_addr_2 {
     type: string
-    sql: ${TABLE}.shipAddr3 ;;
+    sql: ${TABLE}.ship_addr_2 ;;
   }
 
   dimension: ship_city {
     type: string
-    sql: ${TABLE}.shipCity ;;
+    sql: ${TABLE}.ship_city ;;
   }
 
   dimension: ship_company {
     type: string
-    sql: ${TABLE}.shipCompany ;;
+    sql: ${TABLE}.ship_company ;;
   }
 
   dimension: ship_country {
     type: string
-    sql: ${TABLE}.shipCountry ;;
+    sql: ${TABLE}.ship_country ;;
   }
 
   dimension: ship_email {
     type: string
-    sql: ${TABLE}.shipEmail ;;
+    sql: ${TABLE}.ship_email ;;
   }
 
   dimension: ship_name {
     type: string
-    sql: ${TABLE}.shipName ;;
+    sql: ${TABLE}.ship_name ;;
   }
 
   dimension: ship_phone {
     type: string
-    sql: ${TABLE}.shipPhone ;;
+    sql: ${TABLE}.ship_phone ;;
   }
 
   dimension: ship_post_code {
     type: string
-    sql: ${TABLE}.shipPostCode ;;
+    sql: ${TABLE}.ship_post_code ;;
   }
 
   dimension: ship_state_or_prov {
     type: string
-    sql: ${TABLE}.shipStateOrProv ;;
+    sql: ${TABLE}.ship_state_or_prov ;;
   }
 
   dimension: ship_type {
-    type: string
-    sql: ${TABLE}.shipType ;;
+    type: number
+    sql: ${TABLE}.ship_type ;;
   }
 
   dimension: ship_username {
     type: string
-    sql: ${TABLE}.shipUsername ;;
+    sql: ${TABLE}.ship_username ;;
   }
 
   dimension: shipment_status_updated {
     type: yesno
-    sql: ${TABLE}.shipmentStatusUpdated ;;
+    sql: ${TABLE}.shipment_status_updated ;;
   }
 
   dimension: shipment_update_date {
     type: string
-    sql: ${TABLE}.shipmentUpdateDate ;;
+    sql: ${TABLE}.shipment_update_date ;;
   }
 
   dimension: shipped_carrier {
     type: string
-    sql: ${TABLE}.shippedCarrier ;;
-  }
-
-  dimension: shipped_carrier_code {
-    type: string
-    sql: ${TABLE}.shippedCarrierCode ;;
+    sql: ${TABLE}.shipped_carrier ;;
   }
 
   dimension: shipped_class {
     type: string
-    sql: ${TABLE}.shippedClass ;;
-  }
-
-  dimension: shipped_date {
-    type: string
-    sql: ${TABLE}.shippedDate ;;
-  }
-
-  dimension: shipped_date_148 {
-    type: string
-    sql: ${TABLE}.shippedDate_148 ;;
+    sql: ${TABLE}.shipped_class ;;
   }
 
   dimension: shipped_int_code {
     type: string
-    sql: ${TABLE}.shippedIntCode ;;
+    sql: ${TABLE}.shipped_int_code ;;
   }
 
   dimension: shipped_item_qty {
     type: number
-    sql: ${TABLE}.shippedItemQty ;;
-  }
-
-  dimension: shipped_item_qty_delta {
-    type: string
-    sql: ${TABLE}.shippedItemQtyDelta ;;
+    sql: ${TABLE}.shipped_item_qty ;;
   }
 
   dimension: shipped_qty {
     type: number
-    sql: ${TABLE}.shippedQty ;;
+    sql: ${TABLE}.shipped_qty ;;
   }
 
   dimension: sku_sort_master_flag {
     type: yesno
-    sql: ${TABLE}.skuSortMasterFlag ;;
+    sql: ${TABLE}.sku_sort_master_flag ;;
   }
 
   dimension: special_update_flag {
     type: yesno
-    sql: ${TABLE}.specialUpdateFlag ;;
+    sql: ${TABLE}.special_update_flag ;;
   }
 
   dimension: tracking_number {
     type: string
-    sql: ${TABLE}.trackingNumber ;;
+    sql: ${TABLE}.tracking_number ;;
   }
 
   dimension: transportation_charge_type {
     type: number
-    sql: ${TABLE}.transportationChargeType ;;
+    sql: ${TABLE}.transportation_charge_type ;;
   }
 
   dimension: unit_price {
     type: number
-    sql: ${TABLE}.unitPrice ;;
-  }
-
-  dimension: unit_shipping_price {
-    type: string
-    sql: ${TABLE}.unitShippingPrice ;;
-  }
-
-  dimension: unit_shipping_tax_price {
-    type: string
-    sql: ${TABLE}.unitShippingTaxPrice ;;
-  }
-
-  dimension: unit_tax_price {
-    type: string
-    sql: ${TABLE}.unitTaxPrice ;;
-  }
-
-  dimension: update_date {
-    type: string
-    sql: ${TABLE}.updateDate ;;
+    sql: ${TABLE}.unit_price ;;
   }
 
   dimension: vendor {
@@ -828,36 +588,31 @@ view: shipping {
 
   dimension: vendor_sort_master_flag {
     type: yesno
-    sql: ${TABLE}.vendorSortMasterFlag ;;
+    sql: ${TABLE}.vendor_sort_master_flag ;;
   }
 
   dimension: void_date {
     type: string
-    sql: ${TABLE}.voidDate ;;
+    sql: ${TABLE}.void_date ;;
   }
 
   dimension: was_updated {
     type: yesno
-    sql: ${TABLE}.wasUpdated ;;
+    sql: ${TABLE}.was_updated ;;
   }
 
   dimension: was_voided {
     type: yesno
-    sql: ${TABLE}.wasVoided ;;
-  }
-
-  dimension: wh_location {
-    type: string
-    sql: ${TABLE}.whLocation ;;
+    sql: ${TABLE}.was_voided ;;
   }
 
   dimension: width {
-    type: string
+    type: number
     sql: ${TABLE}.width ;;
   }
 
   measure: count {
     type: count
-    drill_fields: [bill_name, from_name, ship_name, ship_username]
+    #drill_fields: [shipped_date, ship_name, bill_name, ship_username]
   }
 }
