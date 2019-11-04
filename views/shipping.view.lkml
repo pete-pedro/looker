@@ -52,7 +52,7 @@ view: shipping {
       quarter,
       year
     ]
-    sql: ${shippeddate} ;;
+    sql: PARSE_TIMESTAMP('%m/%d/%Y %I:%M:%S %p %Ez', ${TABLE}.shipped_date) ;;
   }
 
   dimension: address_change_user {
@@ -457,8 +457,8 @@ view: shipping {
   }
 
   dimension: shippeddate {
-    type: date
-    sql: PARSE_DATE('%m/%d/%Y', SUBSTR(shipped_date, 1, 9)) ;;
+    type: date_time
+    sql: PARSE_TIMESTAMP('%m/%d/%Y %I:%M:%S %p %Ez', shipped_date) ;;
   }
 
   dimension: ship_addr_1 {
