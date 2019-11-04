@@ -52,7 +52,7 @@ view: shipping {
       quarter,
       year
     ]
-    sql: PARSE_DATE('%m/%d/%Y', SUBSTR(shipped_date, 1, 9)) ;;
+    sql: ${shippeddate} ;;
   }
 
   dimension: address_change_user {

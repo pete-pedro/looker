@@ -191,6 +191,22 @@ view: transaction {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: reporting_period {
+    description: "This Year to date versus Last Year to date"
+    group_label: "Created Date"
+    sql: CASE
+        WHEN EXTRACT(YEAR FROM ${created_raw}) = EXTRACT( YEAR FROM CURRENT_DATE())
+        AND ${created_date} < CURRENT_DATE()
+        THEN 'This Year to Date'
+
+        WHEN EXTRACT(YEAR FROM ${created_raw}) + 1 = EXTRACT(YEAR FROM CURRENT_DATE())
+        AND EXTRACT(DAYOFYEAR FROM ${created_raw}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE())
+        THEN 'Last Year to Date'
+
+      END
+       ;;
+  }
+
   measure: total_amount {
     type: sum
     sql: ${amount};;
