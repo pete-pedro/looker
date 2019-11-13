@@ -611,6 +611,12 @@ view: shipping {
     sql: ${TABLE}.width ;;
   }
 
+  measure: total_shipping_cost {
+    type: sum
+    value_format: "$#,##0.00"
+    sql: ${carton_cost} ;;
+  }
+
   measure: count {
     type: count
     #drill_fields: [shipped_date, ship_name, bill_name, ship_username]
