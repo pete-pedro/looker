@@ -617,6 +617,18 @@ view: shipping {
     sql: ${carton_cost} ;;
   }
 
+  measure: total_shipping_cost_dom {
+    type: sum
+    value_format: "$#,##0.00"
+    sql: case when ${ship_country} = 'US' then ${carton_cost} else 0 end ;;
+  }
+
+  measure: total_shipping_cost_intl {
+    type: sum
+    value_format: "$#,##0.00"
+    sql: case when ${ship_country} != 'US' then ${carton_cost} else 0 end ;;
+  }
+
   measure: count {
     type: count
     #drill_fields: [shipped_date, ship_name, bill_name, ship_username]

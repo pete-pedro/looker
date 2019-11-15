@@ -202,6 +202,49 @@ view: transaction {
         WHEN EXTRACT(YEAR FROM ${created_raw}) + 1 = EXTRACT(YEAR FROM CURRENT_DATE())
         AND EXTRACT(DAYOFYEAR FROM ${created_raw}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE())
         THEN 'Last Year to Date'
+        ELSE NULL
+
+      END
+       ;;
+  }
+
+  dimension: reporting_period_mtd {
+    description: "This Month to date versus Last Month to date"
+    group_label: "Created Date"
+    sql: CASE
+        WHEN EXTRACT(YEAR FROM ${created_raw}) = EXTRACT( YEAR FROM CURRENT_DATE())
+        AND EXTRACT(MONTH FROM ${created_raw}) = EXTRACT( MONTH FROM CURRENT_DATE())
+        AND ${created_date} <= CURRENT_DATE()
+        THEN 'This Month to Date'
+
+        WHEN EXTRACT(YEAR FROM ${created_raw}) = EXTRACT( YEAR FROM CURRENT_DATE())
+        AND EXTRACT(MONTH FROM ${created_raw}) + 1 = EXTRACT(MONTH FROM CURRENT_DATE())
+        AND EXTRACT(DAY FROM ${created_raw}) <= EXTRACT(DAY FROM CURRENT_DATE())
+        THEN 'Last Month to Date'
+        ELSE NULL
+
+
+      END
+       ;;
+  }
+
+  dimension: reporting_period_wtd {
+    description: "This Year to date versus Last Year to date"
+    group_label: "Created Date"
+    sql: CASE
+        WHEN EXTRACT(YEAR FROM ${created_raw}) = EXTRACT( YEAR FROM CURRENT_DATE())
+        AND EXTRACT(MONTH FROM ${created_raw}) = EXTRACT( MONTH FROM CURRENT_DATE())
+        AND EXTRACT(WEEK FROM ${created_raw}) = EXTRACT( WEEK FROM CURRENT_DATE())
+        AND ${created_date} <= CURRENT_DATE()
+        THEN 'This Week to Date'
+
+        WHEN EXTRACT(YEAR FROM ${created_raw}) = EXTRACT( YEAR FROM CURRENT_DATE())
+        AND EXTRACT(MONTH FROM ${created_raw}) = EXTRACT(MONTH FROM CURRENT_DATE())
+        AND EXTRACT(WEEK FROM ${created_raw}) + 1 = EXTRACT( WEEK FROM CURRENT_DATE())
+        AND EXTRACT(DAY FROM ${created_raw}) + 7  <= EXTRACT(DAY FROM CURRENT_DATE())
+        THEN 'Last Week to Date'
+        --ELSE NULL
+
 
       END
        ;;
