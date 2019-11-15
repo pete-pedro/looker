@@ -240,8 +240,8 @@ view: transaction {
 
         WHEN EXTRACT(YEAR FROM ${created_raw}) = EXTRACT( YEAR FROM CURRENT_DATE())
         AND EXTRACT(MONTH FROM ${created_raw}) = EXTRACT(MONTH FROM CURRENT_DATE())
-        AND EXTRACT(WEEK FROM ${created_raw}) + 1 = EXTRACT( WEEK FROM CURRENT_DATE())
-        AND EXTRACT(DAY FROM ${created_raw}) + 7  <= EXTRACT(DAY FROM CURRENT_DATE())
+        AND EXTRACT(YEAROFWEEK FROM ${created_raw}) + 1 = EXTRACT(YEAROFWEEK FROM CURRENT_DATE())
+        AND EXTRACT(DAY FROM ${created_raw}) <= EXTRACT(DAY FROM CURRENT_DATE())
         THEN 'Last Week to Date'
         --ELSE NULL
 
