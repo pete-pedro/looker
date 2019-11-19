@@ -229,7 +229,7 @@ view: transaction {
   }
 
   dimension: reporting_period_wtd {
-    description: "This Year to date versus Last Year to date"
+    description: "This Week to date versus Last Week to date"
     group_label: "Created Date"
     sql: CASE
         WHEN EXTRACT(YEAR FROM ${created_raw}) = EXTRACT( YEAR FROM CURRENT_DATE())
@@ -240,7 +240,7 @@ view: transaction {
 
         WHEN EXTRACT(YEAR FROM ${created_raw}) = EXTRACT( YEAR FROM CURRENT_DATE())
         AND EXTRACT(MONTH FROM ${created_raw}) = EXTRACT(MONTH FROM CURRENT_DATE())
-        AND EXTRACT(YEAROFWEEK FROM ${created_raw}) + 1 = EXTRACT(YEAROFWEEK FROM CURRENT_DATE())
+        AND EXTRACT(WEEK FROM ${created_raw}) + 1 = EXTRACT(WEEK FROM CURRENT_DATE())
         AND EXTRACT(DAY FROM ${created_raw}) <= EXTRACT(DAY FROM CURRENT_DATE())
         THEN 'Last Week to Date'
         --ELSE NULL
