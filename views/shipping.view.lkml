@@ -378,7 +378,7 @@ view: shipping {
 
   dimension: order_shipping_amount {
     type: number
-    sql: ${TABLE}.order_shipping_amount ;;
+    sql: coalesce(${TABLE}.order_shipping_amount, 0) ;;
   }
 
   dimension: order_tax_amount {

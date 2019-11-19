@@ -264,7 +264,7 @@ view: transaction {
 
   measure: net_revenue {
     type: sum
-    sql: ${amount} - ${shipping.order_shipping_amount} ;;
+    sql: ${amount} - COALESCE(${shipping.order_shipping_amount}, 0) ;;
     value_format: "$#,##0.00"
   }
 
