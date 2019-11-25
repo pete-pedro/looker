@@ -713,6 +713,26 @@ explore: transaction {
   }
 }
 
+explore: unique_shipping_packages {
+  join: order {
+    type: left_outer
+    sql_on: ${unique_shipping_packages.package_id} = ${order.id} ;;
+    relationship: many_to_one
+  }
+
+  join: transaction {
+    type: left_outer
+    sql_on: ${transaction.order_id} = ${order.id} ;;
+    relationship: many_to_one
+  }
+
+  join: shipping {
+    type: left_outer
+    sql_on: ${shipping.market_order_id} = ${order.id} ;;
+    relationship: many_to_one
+    }
+  }
+
 explore: shipping {
   join: order {
     type: left_outer

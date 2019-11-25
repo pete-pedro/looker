@@ -385,6 +385,12 @@ view: order {
     sql: ${TABLE}.user_id ;;
   }
 
+  measure: total_amount {
+    type: sum
+    value_format: "$#,##0.00"
+    sql: ${total_price} ;;
+  }
+
   measure: avg_amount {
     type: average
     value_format: "$#,##0.00"

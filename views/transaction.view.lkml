@@ -253,6 +253,7 @@ view: transaction {
   measure: total_amount {
     type: sum
     sql: ${amount};;
+    drill_fields: [detail*]
     value_format: "$#,##0.00"
   }
 
