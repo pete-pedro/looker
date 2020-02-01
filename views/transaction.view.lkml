@@ -3,7 +3,7 @@ view: transaction {
   drill_fields: [id]
 
   dimension: id {
-    primary_key: yes
+    primary_key: no
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -113,6 +113,7 @@ view: transaction {
   dimension: order_id {
     type: number
     # hidden: yes
+    primary_key: yes
     sql: ${TABLE}.order_id ;;
   }
 
@@ -191,16 +192,27 @@ view: transaction {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: payment {
+    type: number
+    sql: CASE WHEN ${refund_id} IS NULL THEN ${amount} ELSE 0 END ;;
+  }
+
+  dimension: refunds {
+    type: number
+    sql: CASE WHEN ${refund_id} IS NOT NULL THEN ${amount} ELSE 0 END ;;
+  }
+
   dimension: reporting_period {
     description: "This Year to date versus Last Year to date"
     group_label: "Created Date"
     sql: CASE
-        WHEN EXTRACT(YEAR FROM ${created_raw}) = EXTRACT( YEAR FROM CURRENT_DATE())
-        AND ${created_date} < CURRENT_DATE()
+        WHEN EXTRACT(YEAR FROM ${created_raw}) = EXTRACT(YEAR FROM CURRENT_DATE())
+        AND EXTRACT(DAYOFYEAR FROM ${created_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE())
+        --AND ${created_date} < CURRENT_DATE()
         THEN 'This Year to Date'
 
-        WHEN EXTRACT(YEAR FROM ${created_raw}) + 1 = EXTRACT(YEAR FROM CURRENT_DATE())
-        AND EXTRACT(DAYOFYEAR FROM ${created_raw}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE())
+        WHEN EXTRACT(YEAR FROM ${created_date}) + 1 = EXTRACT(YEAR FROM CURRENT_DATE())
+        AND EXTRACT(DAYOFYEAR FROM ${created_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE())
         THEN 'Last Year to Date'
         ELSE NULL
 
@@ -250,15 +262,27 @@ view: transaction {
        ;;
   }
 
-  measure: total_amount {
-    type: sum
-    sql: ${amount};;
+  measure: total_payment {
+    type: number
+    sql: ${payment} - ${refunds};;
     drill_fields: [detail*]
+    value_format: "$#,##0.00"
+  }
+
+  measure: total_refunds {
+    type: number
+    sql: ${refunds} ;;
     value_format: "$#,##0.00"
   }
 
   measure: avg_amount {
     type: average
+    sql: ${amount} ;;
+    value_format: "$#,##0.00"
+  }
+
+  measure: total_volume {
+    type: sum
     sql: ${amount} ;;
     value_format: "$#,##0.00"
   }

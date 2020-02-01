@@ -645,6 +645,7 @@ explore: tax_line {
 }
 
 explore: transaction {
+  always_join: [refund]
   join: location {
     type: left_outer
     sql_on: ${transaction.location_id} = ${location.id} ;;
@@ -666,6 +667,12 @@ explore: transaction {
   join: order_line {
     type: left_outer
     sql_on: ${order.id} = ${order_line.order_id} ;;
+    relationship: many_to_one
+  }
+
+  join: order_line_refund {
+    type: left_outer
+    sql_on: ${order_line_refund.refund_id} = ${refund.id} ;;
     relationship: many_to_one
   }
 
@@ -730,8 +737,8 @@ explore: unique_shipping_packages {
     type: left_outer
     sql_on: ${shipping.market_order_id} = ${order.id} ;;
     relationship: many_to_one
-    }
   }
+}
 
 explore: shipping {
   join: order {
