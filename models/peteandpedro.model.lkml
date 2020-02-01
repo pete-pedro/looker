@@ -400,6 +400,18 @@ explore: order {
     sql_on: ${order_line.order_id} = ${order.id};;
     relationship: one_to_many
   }
+
+  join: order_discount_code {
+    type: left_outer
+    sql_on: ${order_discount_code.order_id} = ${order.id} ;;
+    relationship: many_to_one
+  }
+
+  join: product {
+    type: left_outer
+    sql_on: ${order_line.product_id} = ${product.id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: order_discount_code {
