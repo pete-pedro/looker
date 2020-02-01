@@ -390,6 +390,16 @@ explore: order {
     sql_on: ${order.customer_id} = ${customer.id} ;;
     relationship: many_to_one
   }
+
+  join: customer_address {
+    sql_on: ${customer_address.customer_id} = ${customer.id} ;;
+    relationship: many_to_one
+  }
+
+  join: order_line {
+    sql_on: ${order_line.order_id} = ${order.id};;
+    relationship: one_to_many
+  }
 }
 
 explore: order_discount_code {

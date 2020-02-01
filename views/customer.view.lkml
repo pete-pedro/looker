@@ -61,6 +61,15 @@ view: customer {
     sql: ${TABLE}.last_name ;;
   }
 
+  dimension: new_vs_repeat {
+    type: string
+    sql: case
+         when ${orders_count} = 1 then 'new'
+         when ${orders_count} = 0 then 'new'
+         else 'repeat' end ;;
+    group_label: "Other"
+  }
+
   dimension: orders_count {
     type: number
     sql: ${TABLE}.orders_count ;;
@@ -70,6 +79,7 @@ view: customer {
     type: string
     sql: ${TABLE}.phone ;;
   }
+
 
   dimension: state {
     type: string
@@ -107,6 +117,24 @@ view: customer {
 
   measure: count {
     type: count
+    drill_fields: [detail*]
+  }
+
+  measure: sum_total_spent {
+    type: sum
+    sql: ${total_spent} ;;
+    drill_fields: [detail*]
+  }
+
+  measure: avg_order_value {
+    type: average
+    sql: ${total_spent} ;;
+    drill_fields: [detail*]
+  }
+
+  measure: avg_order_count {
+    type: average
+    sql: ${orders_count} ;;
     drill_fields: [detail*]
   }
 

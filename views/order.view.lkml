@@ -156,6 +156,7 @@ view: order {
       raw,
       time,
       date,
+      day_of_week,
       week,
       month,
       quarter,
@@ -459,6 +460,27 @@ view: order {
 
   measure: count {
     type: count
+    drill_fields: [detail*]
+  }
+
+  measure: total_revenue {
+    type: sum
+    sql: ${total_price} ;;
+    drill_fields: [detail*]
+    value_format_name: usd
+  }
+
+  measure: avg_order_value {
+    type: average
+    sql: ${total_price} ;;
+    drill_fields: [detail*]
+    value_format_name: usd
+  }
+
+  # specifically to be used with a date dimension
+  measure: count_new_customers {
+    type: count_distinct
+    sql: ${customer_id} ;;
     drill_fields: [detail*]
   }
 
