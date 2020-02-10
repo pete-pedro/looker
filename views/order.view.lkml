@@ -22,6 +22,11 @@ view: order {
     sql: ${TABLE}._fivetran_synced ;;
   }
 
+  dimension: refunded_flag {
+    type: yesno
+    sql: ${order_line_refund.refund_id} is not null ;;
+  }
+
   dimension: billing_address_address_1 {
     type: string
     sql: ${TABLE}.billing_address_address_1 ;;
@@ -162,7 +167,7 @@ view: order {
       quarter,
       year
     ]
-    sql: ${TABLE}.created_at ;;
+    sql: TIMESTAMP_SUB(${TABLE}.created_at, INTERVAL 5 hour);;
   }
 
   dimension: currency {
@@ -215,6 +220,7 @@ view: order {
   dimension: number {
     type: number
     sql: ${TABLE}.number ;;
+    value_format: "0"
   }
 
   dimension: order_number {
@@ -233,7 +239,7 @@ view: order {
       quarter,
       year
     ]
-    sql: ${TABLE}.processed_at ;;
+    sql: TIMESTAMP_SUB(${TABLE}.processed_at, INTERVAL 5 hour) ;;
   }
 
   dimension: processing_method {
@@ -357,6 +363,11 @@ view: order {
     sql: ${TABLE}.total_price ;;
   }
 
+  dimension: price_minus_shipping {
+    type: number
+    sql: ${total_price} - ${order_shipping_line.price} ;;
+  }
+
   dimension: total_tax {
     type: number
     sql: ${TABLE}.total_tax ;;
@@ -446,6 +457,34 @@ view: order {
        ;;
   }
 
+  dimension: payments {
+    type: number
+    sql: CASE WHEN ${transaction.refund_id} is null THEN ${total_price} ELSE 0 END ;;
+  }
+
+  dimension: total_refunds {
+    type: number
+    sql: ${refunds.refunds}  ;;
+  }
+
+  measure: total_revenue {
+    type: number
+    value_format: "$#,##0.00"
+    sql: SUM(${total_price}) - SUM(${refunds.refunds}) ;;
+  }
+
+  measure: total_payments {
+    type: sum
+    sql: CASE WHEN ${order_line_refund.refund_id} is null THEN ${total_price} ELSE 0 END ;;
+    value_format_name: usd
+  }
+
+  measure: absolute_tax {
+    type: sum
+    sql: ${total_tax} ;;
+    value_format_name: usd
+  }
+
   measure: total_amount {
     type: sum
     value_format: "$#,##0.00"
@@ -463,12 +502,17 @@ view: order {
     drill_fields: [detail*]
   }
 
-  measure: total_revenue {
+  measure: total_orders {
+    type: count_distinct
+    sql: ${order_number} ;;
+  }
+
+  measure: discounts {
     type: sum
-    sql: ${total_price} ;;
-    drill_fields: [detail*]
+    sql: ${total_discounts} ;;
     value_format_name: usd
   }
+
 
   measure: avg_order_value {
     type: average

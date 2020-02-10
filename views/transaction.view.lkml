@@ -38,15 +38,14 @@ view: transaction {
     timeframes: [
       raw,
       time,
-      day_of_week,
-      day_of_month,
       date,
+      day_of_week,
       week,
       month,
       quarter,
       year
     ]
-    sql: ${TABLE}.created_at ;;
+    sql: TIMESTAMP_SUB(${TABLE}.created_at, INTERVAL 5 hour);;
   }
 
   dimension: currency {
@@ -158,7 +157,7 @@ view: transaction {
       quarter,
       year
     ]
-    sql: ${TABLE}.processed_at ;;
+    sql: TIMESTAMP_SUB(${TABLE}.processed_at, INTERVAL 5 hour) ;;
   }
 
   dimension: receipt {
@@ -194,12 +193,12 @@ view: transaction {
 
   dimension: payment {
     type: number
-    sql: CASE WHEN ${refund_id} IS NULL THEN ${amount} ELSE 0 END ;;
+    sql: CASE WHEN ${status} = 'success' and ${kind} in ('sale','authorization') and ${parent_id} IS NULL THEN ${amount} ELSE 0 END ;;
   }
 
   dimension: refunds {
     type: number
-    sql: CASE WHEN ${refund_id} IS NOT NULL THEN ${amount} ELSE 0 END ;;
+    sql: CASE WHEN ${status} = 'success' and ${kind} in ('refund') THEN ${amount} ELSE 0 END ;;
   }
 
   dimension: reporting_period {
@@ -263,14 +262,14 @@ view: transaction {
   }
 
   measure: total_payment {
-    type: number
-    sql: ${payment} - ${refunds};;
+    type: sum
+    sql: ${payment};;
     drill_fields: [detail*]
     value_format: "$#,##0.00"
   }
 
   measure: total_refunds {
-    type: number
+    type: sum
     sql: ${refunds} ;;
     value_format: "$#,##0.00"
   }
@@ -287,6 +286,13 @@ view: transaction {
     value_format: "$#,##0.00"
   }
 
+  measure: total_revenue {
+    type: sum
+    sql: ${payment} - ${refunds} ;;
+    value_format: "$#,##0.00"
+
+  }
+
   measure: net_revenue {
     type: sum
     sql: ${amount} - COALESCE(${shipping.order_shipping_amount}, 0) ;;
@@ -296,6 +302,11 @@ view: transaction {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: orders {
+    type: count_distinct
+    sql: ${order_id} ;;
   }
 
 

@@ -78,6 +78,11 @@ view: order_shipping_line {
     drill_fields: [detail*]
   }
 
+  measure: total_shipping {
+    type: sum
+    sql: ${price} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

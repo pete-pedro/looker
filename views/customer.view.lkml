@@ -138,6 +138,12 @@ view: customer {
     drill_fields: [detail*]
   }
 
+  measure: count_new_users {
+    type: count_distinct
+    sql: ${id} ;;
+
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

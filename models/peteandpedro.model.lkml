@@ -230,153 +230,153 @@ explore: customer_tag {
   }
 }
 
-explore: discount_allocation {
-  join: order_line {
-    type: left_outer
-    sql_on: ${discount_allocation.order_line_id} = ${order_line.id} ;;
-    relationship: many_to_one
-  }
+# explore: discount_allocation {
+#   join: order_line {
+#     type: left_outer
+#     sql_on: ${discount_allocation.order_line_id} = ${order_line.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: product {
+#     type: left_outer
+#     sql_on: ${order_line.product_id} = ${product.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: order {
+#     type: left_outer
+#     sql_on: ${order_line.order_id} = ${order.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: location {
+#     type: left_outer
+#     sql_on: ${order.location_id} = ${location.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: customer {
+#     type: left_outer
+#     sql_on: ${order.customer_id} = ${customer.id} ;;
+#     relationship: many_to_one
+#   }
+# }
 
-  join: product {
-    type: left_outer
-    sql_on: ${order_line.product_id} = ${product.id} ;;
-    relationship: many_to_one
-  }
+#explore: discount_application {
+ # join: order {
+  #  type: left_outer
+  #  sql_on: ${discount_application.order_id} = ${order.id} ;;
+ #   relationship: many_to_one
+ # }
 
-  join: order {
-    type: left_outer
-    sql_on: ${order_line.order_id} = ${order.id} ;;
-    relationship: many_to_one
-  }
+ # join: location {
+  #  type: left_outer
+  #  sql_on: ${order.location_id} = ${location.id} ;;
+  #  relationship: many_to_one
+ # }
 
-  join: location {
-    type: left_outer
-    sql_on: ${order.location_id} = ${location.id} ;;
-    relationship: many_to_one
-  }
+ # join: customer {
+ #   type: left_outer
+ #   sql_on: ${order.customer_id} = ${customer.id} ;;
+ #   relationship: many_to_one
+ # }
+#}
 
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: discount_application {
-  join: order {
-    type: left_outer
-    sql_on: ${discount_application.order_id} = ${order.id} ;;
-    relationship: many_to_one
-  }
-
-  join: location {
-    type: left_outer
-    sql_on: ${order.location_id} = ${location.id} ;;
-    relationship: many_to_one
-  }
-
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: discount_code {
-  join: price_rule {
-    type: left_outer
-    sql_on: ${discount_code.price_rule_id} = ${price_rule.id} ;;
-    relationship: many_to_one
-  }
-}
+# explore: discount_code {
+#   join: price_rule {
+#     type: left_outer
+#     sql_on: ${discount_code.price_rule_id} = ${price_rule.id} ;;
+#     relationship: many_to_one
+#   }
+# }
 
 explore: fivetran_audit {}
 
-explore: fulfillment {
-  join: order {
-    type: left_outer
-    sql_on: ${fulfillment.order_id} = ${order.id} ;;
-    relationship: many_to_one
-  }
+# explore: fulfillment {
+#   join: order {
+#     type: left_outer
+#     sql_on: ${fulfillment.order_id} = ${order.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: location {
+#     type: left_outer
+#     sql_on: ${fulfillment.location_id} = ${location.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: customer {
+#     type: left_outer
+#     sql_on: ${order.customer_id} = ${customer.id} ;;
+#     relationship: many_to_one
+#   }
+# }
 
-  join: location {
-    type: left_outer
-    sql_on: ${fulfillment.location_id} = ${location.id} ;;
-    relationship: many_to_one
-  }
-
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: fulfillment_event {
-  join: fulfillment {
-    type: left_outer
-    sql_on: ${fulfillment_event.fulfillment_id} = ${fulfillment.id} ;;
-    relationship: many_to_one
-  }
-
-  join: order {
-    type: left_outer
-    sql_on: ${fulfillment_event.order_id} = ${order.id} ;;
-    relationship: many_to_one
-  }
-
-  join: location {
-    type: left_outer
-    sql_on: ${fulfillment.location_id} = ${location.id} ;;
-    relationship: many_to_one
-  }
-
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: fulfillment_order_line {
-  join: order_line {
-    type: left_outer
-    sql_on: ${fulfillment_order_line.order_line_id} = ${order_line.id} ;;
-    relationship: many_to_one
-  }
-
-  join: fulfillment {
-    type: left_outer
-    sql_on: ${fulfillment_order_line.fulfillment_id} = ${fulfillment.id} ;;
-    relationship: many_to_one
-  }
-
-  join: product {
-    type: left_outer
-    sql_on: ${order_line.product_id} = ${product.id} ;;
-    relationship: many_to_one
-  }
-
-  join: order {
-    type: left_outer
-    sql_on: ${order_line.order_id} = ${order.id} ;;
-    relationship: many_to_one
-  }
-
-  join: location {
-    type: left_outer
-    sql_on: ${order.location_id} = ${location.id} ;;
-    relationship: many_to_one
-  }
-
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: location {}
+# explore: fulfillment_event {
+#   join: fulfillment {
+#     type: left_outer
+#     sql_on: ${fulfillment_event.fulfillment_id} = ${fulfillment.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: order {
+#     type: left_outer
+#     sql_on: ${fulfillment_event.order_id} = ${order.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: location {
+#     type: left_outer
+#     sql_on: ${fulfillment.location_id} = ${location.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: customer {
+#     type: left_outer
+#     sql_on: ${order.customer_id} = ${customer.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: fulfillment_order_line {
+#   join: order_line {
+#     type: left_outer
+#     sql_on: ${fulfillment_order_line.order_line_id} = ${order_line.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: fulfillment {
+#     type: left_outer
+#     sql_on: ${fulfillment_order_line.fulfillment_id} = ${fulfillment.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: product {
+#     type: left_outer
+#     sql_on: ${order_line.product_id} = ${product.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: order {
+#     type: left_outer
+#     sql_on: ${order_line.order_id} = ${order.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: location {
+#     type: left_outer
+#     sql_on: ${order.location_id} = ${location.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: customer {
+#     type: left_outer
+#     sql_on: ${order.customer_id} = ${customer.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: location {}
 
 explore: order {
   join: location {
@@ -412,262 +412,307 @@ explore: order {
     sql_on: ${order_line.product_id} = ${product.id} ;;
     relationship: many_to_one
   }
-}
 
-explore: order_discount_code {
-  join: order {
+  join: shipping {
     type: left_outer
-    sql_on: ${order_discount_code.order_id} = ${order.id} ;;
+    sql_on: ${order.id} = ${shipping.market_order_id} ;;
     relationship: many_to_one
   }
 
-  join: location {
+  join: transaction {
     type: left_outer
-    sql_on: ${order.location_id} = ${location.id} ;;
+    sql_on: ${order.id} = ${transaction.order_id} ;;
+    relationship: one_to_many
+  }
+
+  join: collect {
+    sql_on: ${collect.product_id} = ${product.id} ;;
     relationship: many_to_one
   }
 
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: order_line {
-  join: product {
-    type: left_outer
-    sql_on: ${order_line.product_id} = ${product.id} ;;
-    relationship: many_to_one
-  }
-
-  join: order {
-    type: left_outer
-    sql_on: ${order_line.order_id} = ${order.id} ;;
-    relationship: many_to_one
-  }
-
-  join: location {
-    type: left_outer
-    sql_on: ${order.location_id} = ${location.id} ;;
-    relationship: many_to_one
-  }
-
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: order_line_refund {
-  join: order_line {
-    type: left_outer
-    sql_on: ${order_line_refund.order_line_id} = ${order_line.id} ;;
+  join: collection {
+    sql_on: ${collection.id} = ${collect.collection_id} ;;
     relationship: many_to_one
   }
 
   join: refund {
     type: left_outer
+    sql_on: ${transaction.refund_id} = ${refund.id} ;;
+    relationship: one_to_one
+  }
+
+  join: order_line_refund {
+    type: left_outer
     sql_on: ${order_line_refund.refund_id} = ${refund.id} ;;
-    relationship: many_to_one
+    relationship: one_to_one
   }
 
-  join: location {
-    type: left_outer
-    sql_on: ${order_line_refund.location_id} = ${location.id} ;;
-    relationship: many_to_one
-  }
-
-  join: product {
-    type: left_outer
-    sql_on: ${order_line.product_id} = ${product.id} ;;
-    relationship: many_to_one
-  }
-
-  join: order {
-    type: left_outer
-    sql_on: ${order_line.order_id} = ${order.id} ;;
-    relationship: many_to_one
-  }
-
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: order_note_attribute {
-  join: order {
-    type: left_outer
-    sql_on: ${order_note_attribute.order_id} = ${order.id} ;;
-    relationship: many_to_one
-  }
-
-  join: location {
-    type: left_outer
-    sql_on: ${order.location_id} = ${location.id} ;;
-    relationship: many_to_one
-  }
-
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: order_shipping_line {
-  join: order {
-    type: left_outer
-    sql_on: ${order_shipping_line.order_id} = ${order.id} ;;
-    relationship: many_to_one
-  }
-
-  join: location {
-    type: left_outer
-    sql_on: ${order.location_id} = ${location.id} ;;
-    relationship: many_to_one
-  }
-
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: order_shipping_tax_line {
   join: order_shipping_line {
     type: left_outer
-    sql_on: ${order_shipping_tax_line.order_shipping_line_id} = ${order_shipping_line.id} ;;
-    relationship: many_to_one
-  }
-
-  join: order {
-    type: left_outer
     sql_on: ${order_shipping_line.order_id} = ${order.id} ;;
     relationship: many_to_one
   }
 
-  join: location {
+  join: refunds {
     type: left_outer
-    sql_on: ${order.location_id} = ${location.id} ;;
-    relationship: many_to_one
-  }
-
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
+    sql_on: ${order.order_number} = ${refunds.order_number} ;;
     relationship: many_to_one
   }
 }
 
-explore: order_tag {
-  join: order {
-    type: left_outer
-    sql_on: ${order_tag.order_id} = ${order.id} ;;
-    relationship: many_to_one
-  }
+# explore: order_discount_code {
+#   join: order {
+#     type: left_outer
+#     sql_on: ${order_discount_code.order_id} = ${order.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: location {
+#     type: left_outer
+#     sql_on: ${order.location_id} = ${location.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: customer {
+#     type: left_outer
+#     sql_on: ${order.customer_id} = ${customer.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: order_line {
+#   join: product {
+#     type: left_outer
+#     sql_on: ${order_line.product_id} = ${product.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: order {
+#     type: left_outer
+#     sql_on: ${order_line.order_id} = ${order.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: location {
+#     type: left_outer
+#     sql_on: ${order.location_id} = ${location.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: customer {
+#     type: left_outer
+#     sql_on: ${order.customer_id} = ${customer.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: order_line_refund {
+#   join: order_line {
+#     type: left_outer
+#     sql_on: ${order_line_refund.order_line_id} = ${order_line.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: refund {
+#     type: left_outer
+#     sql_on: ${order_line_refund.refund_id} = ${refund.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: location {
+#     type: left_outer
+#     sql_on: ${order_line_refund.location_id} = ${location.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: product {
+#     type: left_outer
+#     sql_on: ${order_line.product_id} = ${product.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: order {
+#     type: left_outer
+#     sql_on: ${order_line.order_id} = ${order.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: customer {
+#     type: left_outer
+#     sql_on: ${order.customer_id} = ${customer.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: order_note_attribute {
+#   join: order {
+#     type: left_outer
+#     sql_on: ${order_note_attribute.order_id} = ${order.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: location {
+#     type: left_outer
+#     sql_on: ${order.location_id} = ${location.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: customer {
+#     type: left_outer
+#     sql_on: ${order.customer_id} = ${customer.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: order_shipping_line {
+#   join: order {
+#     type: left_outer
+#     sql_on: ${order_shipping_line.order_id} = ${order.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: location {
+#     type: left_outer
+#     sql_on: ${order.location_id} = ${location.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: customer {
+#     type: left_outer
+#     sql_on: ${order.customer_id} = ${customer.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: order_shipping_tax_line {
+#   join: order_shipping_line {
+#     type: left_outer
+#     sql_on: ${order_shipping_tax_line.order_shipping_line_id} = ${order_shipping_line.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: order {
+#     type: left_outer
+#     sql_on: ${order_shipping_line.order_id} = ${order.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: location {
+#     type: left_outer
+#     sql_on: ${order.location_id} = ${location.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: customer {
+#     type: left_outer
+#     sql_on: ${order.customer_id} = ${customer.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: order_tag {
+#   join: order {
+#     type: left_outer
+#     sql_on: ${order_tag.order_id} = ${order.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: location {
+#     type: left_outer
+#     sql_on: ${order.location_id} = ${location.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: customer {
+#     type: left_outer
+#     sql_on: ${order.customer_id} = ${customer.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: order_url_tag {
+#   join: order {
+#     type: left_outer
+#     sql_on: ${order_url_tag.order_id} = ${order.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: location {
+#     type: left_outer
+#     sql_on: ${order.location_id} = ${location.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: customer {
+#     type: left_outer
+#     sql_on: ${order.customer_id} = ${customer.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: price_rule {}
+#
+# explore: product {}
+#
+# explore: product_option {
+#   join: product {
+#     type: left_outer
+#     sql_on: ${product_option.product_id} = ${product.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: product_tag {
+#   join: product {
+#     type: left_outer
+#     sql_on: ${product_tag.product_id} = ${product.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: product_variant {
+#   join: product {
+#     type: left_outer
+#     sql_on: ${product_variant.product_id} = ${product.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: refund {}
 
-  join: location {
-    type: left_outer
-    sql_on: ${order.location_id} = ${location.id} ;;
-    relationship: many_to_one
-  }
-
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: order_url_tag {
-  join: order {
-    type: left_outer
-    sql_on: ${order_url_tag.order_id} = ${order.id} ;;
-    relationship: many_to_one
-  }
-
-  join: location {
-    type: left_outer
-    sql_on: ${order.location_id} = ${location.id} ;;
-    relationship: many_to_one
-  }
-
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: price_rule {}
-
-explore: product {}
-
-explore: product_option {
-  join: product {
-    type: left_outer
-    sql_on: ${product_option.product_id} = ${product.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: product_tag {
-  join: product {
-    type: left_outer
-    sql_on: ${product_tag.product_id} = ${product.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: product_variant {
-  join: product {
-    type: left_outer
-    sql_on: ${product_variant.product_id} = ${product.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: refund {}
-
-explore: tax_line {
-  join: order_line {
-    type: left_outer
-    sql_on: ${tax_line.order_line_id} = ${order_line.id} ;;
-    relationship: many_to_one
-  }
-
-  join: product {
-    type: left_outer
-    sql_on: ${order_line.product_id} = ${product.id} ;;
-    relationship: many_to_one
-  }
-
-  join: order {
-    type: left_outer
-    sql_on: ${order_line.order_id} = ${order.id} ;;
-    relationship: many_to_one
-  }
-
-  join: location {
-    type: left_outer
-    sql_on: ${order.location_id} = ${location.id} ;;
-    relationship: many_to_one
-  }
-
-  join: customer {
-    type: left_outer
-    sql_on: ${order.customer_id} = ${customer.id} ;;
-    relationship: many_to_one
-  }
-}
+# explore: tax_line {
+#   join: order_line {
+#     type: left_outer
+#     sql_on: ${tax_line.order_line_id} = ${order_line.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: product {
+#     type: left_outer
+#     sql_on: ${order_line.product_id} = ${product.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: order {
+#     type: left_outer
+#     sql_on: ${order_line.order_id} = ${order.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: location {
+#     type: left_outer
+#     sql_on: ${order.location_id} = ${location.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: customer {
+#     type: left_outer
+#     sql_on: ${order.customer_id} = ${customer.id} ;;
+#     relationship: many_to_one
+#   }
+# }
 
 explore: transaction {
-  always_join: [refund]
   join: location {
     type: left_outer
     sql_on: ${transaction.location_id} = ${location.id} ;;
@@ -695,6 +740,12 @@ explore: transaction {
   join: order_line_refund {
     type: left_outer
     sql_on: ${order_line_refund.refund_id} = ${refund.id} ;;
+    relationship: many_to_one
+  }
+
+  join: order_shipping_line {
+    type: left_outer
+    sql_on: ${order_shipping_line.order_id} = ${order.id} ;;
     relationship: many_to_one
   }
 
@@ -740,13 +791,32 @@ explore: transaction {
     sql_on: ${discount_code.id} = ${checkout_discount_code.discount_id} ;;
     relationship: many_to_one
   }
+
+  join: refunds {
+    type: left_outer
+    sql_on: ${order.order_number} = ${refunds.order_number} ;;
+    relationship: many_to_one
+  }
+
+  join: giftcards {
+    type: left_outer
+    sql_on: ${transaction.id} = ${giftcards.transaction_id} ;;
+    relationship: one_to_one
+  }
 }
+
+explore: googleanalytics {}
 
 explore: unique_shipping_packages {
   join: order {
     type: left_outer
     sql_on: ${unique_shipping_packages.package_id} = ${order.id} ;;
     relationship: many_to_one
+  }
+
+  join: order_line {
+    sql_on: ${order_line.order_id} = ${order.id};;
+    relationship: one_to_many
   }
 
   join: transaction {
@@ -760,6 +830,30 @@ explore: unique_shipping_packages {
     sql_on: ${shipping.market_order_id} = ${order.id} ;;
     relationship: many_to_one
   }
+
+  join: order_line_refund {
+    type: left_outer
+    sql_on: ${order_line_refund.refund_id} = ${refund.id} ;;
+    relationship: many_to_one
+  }
+
+  join: refund {
+    type: left_outer
+    sql_on: ${transaction.refund_id} = ${refund.id} ;;
+    relationship: many_to_one
+  }
+
+  join: order_shipping_line {
+    type: left_outer
+    sql_on: ${order_shipping_line.order_id} = ${order.id} ;;
+    relationship: many_to_one
+  }
+
+  join: refunds {
+    type: left_outer
+    sql_on: ${order.order_number} = ${refunds.order_number} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: shipping {
@@ -769,9 +863,39 @@ explore: shipping {
     relationship: many_to_one
   }
 
+  join: order_line {
+    sql_on: ${order_line.order_id} = ${order.id};;
+    relationship: one_to_many
+  }
+
+  join: order_line_refund {
+    type: left_outer
+    sql_on: ${order_line_refund.refund_id} = ${refund.id} ;;
+    relationship: many_to_one
+  }
+
   join: transaction {
     type: left_outer
     sql_on: ${transaction.order_id} = ${order.id} ;;
     relationship: many_to_one
   }
+
+  join: refund {
+    type: left_outer
+    sql_on: ${transaction.refund_id} = ${refund.id} ;;
+    relationship: many_to_one
+  }
+
+  join: order_shipping_line {
+    type: left_outer
+    sql_on: ${order_shipping_line.order_id} = ${order.id} ;;
+    relationship: many_to_one
+  }
+
+  join: refunds {
+    type: left_outer
+    sql_on: ${order.order_number} = ${refunds.order_number} ;;
+    relationship: many_to_one
+  }
+
 }
