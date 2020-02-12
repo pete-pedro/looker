@@ -205,13 +205,13 @@ view: transaction {
     description: "This Year to date versus Last Year to date"
     group_label: "Created Date"
     sql: CASE
-        WHEN EXTRACT(YEAR FROM ${created_raw}) = EXTRACT(YEAR FROM CURRENT_DATE())
-        AND EXTRACT(DAYOFYEAR FROM ${created_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE())
+        WHEN EXTRACT(YEAR FROM ${order.processed_raw}) = EXTRACT(YEAR FROM CURRENT_DATE())
+        AND EXTRACT(DAYOFYEAR FROM ${order.processed_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE())
         --AND ${created_date} < CURRENT_DATE()
         THEN 'This Year to Date'
 
-        WHEN EXTRACT(YEAR FROM ${created_date}) + 1 = EXTRACT(YEAR FROM CURRENT_DATE())
-        AND EXTRACT(DAYOFYEAR FROM ${created_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE())
+        WHEN EXTRACT(YEAR FROM ${order.processed_date}) + 1 = EXTRACT(YEAR FROM CURRENT_DATE())
+        AND EXTRACT(DAYOFYEAR FROM ${order.processed_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE())
         THEN 'Last Year to Date'
         ELSE NULL
 
@@ -223,14 +223,14 @@ view: transaction {
     description: "This Month to date versus Last Month to date"
     group_label: "Created Date"
     sql: CASE
-        WHEN EXTRACT(YEAR FROM ${created_raw}) = EXTRACT( YEAR FROM CURRENT_DATE())
-        AND EXTRACT(MONTH FROM ${created_raw}) = EXTRACT( MONTH FROM CURRENT_DATE())
-        AND ${created_date} <= CURRENT_DATE()
+        WHEN EXTRACT(YEAR FROM ${order.processed_raw}) = EXTRACT( YEAR FROM CURRENT_DATE())
+        AND EXTRACT(MONTH FROM ${order.processed_raw}) = EXTRACT( MONTH FROM CURRENT_DATE())
+        AND ${order.processed_date} <= CURRENT_DATE()
         THEN 'This Month to Date'
 
-        WHEN EXTRACT(YEAR FROM ${created_raw}) = EXTRACT( YEAR FROM CURRENT_DATE())
-        AND EXTRACT(MONTH FROM ${created_raw}) + 1 = EXTRACT(MONTH FROM CURRENT_DATE())
-        AND EXTRACT(DAY FROM ${created_raw}) <= EXTRACT(DAY FROM CURRENT_DATE())
+        WHEN EXTRACT(YEAR FROM ${order.processed_raw}) = EXTRACT( YEAR FROM CURRENT_DATE())
+        AND EXTRACT(MONTH FROM ${order.processed_raw}) + 1 = EXTRACT(MONTH FROM CURRENT_DATE())
+        AND EXTRACT(DAY FROM ${order.processed_raw}) <= EXTRACT(DAY FROM CURRENT_DATE())
         THEN 'Last Month to Date'
         ELSE NULL
 
